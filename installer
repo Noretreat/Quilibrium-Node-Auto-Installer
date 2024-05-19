@@ -10,23 +10,16 @@ exit_message() {
 # Function to check if a UFW rule exists
 ufw_rule_exists() {
     local rule="$1"
-    sudo ufw status | grep -q "$rule"
+    ufw status | grep -q "$rule"
 }
-
-# Step 0: Check sudo availability
-if ! [ -x "$(command -v sudo)" ]; then
-  echo "Sudo is not installed! This script requires sudo to run. Exiting..." >&2
-  exit_message
-  exit 1
-fi
 
 # Step 1: Update package lists
 echo "Updating package lists..."
-sudo apt -q update || { echo "Failed to update package lists! Exiting..."; exit_message; exit 1; }
+apt -q update || { echo "Failed to update package lists! Exiting..."; exit_message; exit 1; }
 
 # Step 2: Install required packages
 echo "Installing required packages..."
-sudo apt-get install git wget tmux tar -y || { echo "Failed to install required packages! Exiting..."; exit_message; exit 1; }
+apt-get install git wget tmux tar -y || { echo "Failed to install required packages! Exiting..."; exit_message; exit 1; }
 
 # Step 3: Download and extract Go
 if [[ $(go version) == *"go1.20.1"* || $(go version) == *"go1.20.2"* || $(go version) == *"go1.20.3"* || $(go version) == *"go1.20.4"* ]]; then
@@ -34,8 +27,8 @@ if [[ $(go version) == *"go1.20.1"* || $(go version) == *"go1.20.2"* || $(go ver
 else
   echo "Installing the necessary version of Go..."
   wget -4 https://go.dev/dl/go1.20.14.linux-amd64.tar.gz || { echo "Failed to download Go! Exiting..."; exit_message; exit 1; }
-  sudo tar -C /usr/local -xzf go1.20.14.linux-amd64.tar.gz || { echo "Failed to extract Go! Exiting..."; exit_message; exit 1; }
-  sudo rm go1.20.14.linux-amd64.tar.gz || { echo "Failed to remove downloaded archive! Exiting..."; exit_message; exit 1; }
+  tar -C /usr/local -xzf go1.20.14.linux-amd64.tar.gz || { echo "Failed to extract Go! Exiting..."; exit_message; exit 1; }
+  rm go1.20.14.linux-amd64.tar.gz || { echo "Failed to remove downloaded archive! Exiting..."; exit_message; exit 1; }
 fi
 
 # Step 4: Set Go environment variables
@@ -78,11 +71,11 @@ source ~/.bashrc
 sleep 1  # Add a 1-second delay
 
 # Step 5: Create swap space
-if ! [ "$(sudo swapon -s)" ]; then
+if ! [ "$(swapon -s)" ]; then
   echo "Creating swap space..."
-  sudo mkdir /swap && sudo fallocate -l 24G /swap/swapfile && sudo chmod 600 /swap/swapfile || { echo "Failed to create swap space! Exiting..."; exit_message; exit 1; }
-  sudo mkswap /swap/swapfile && sudo swapon /swap/swapfile || { echo "Failed to set up swap space! Exiting..."; exit_message; exit 1; }
-  sudo bash -c 'echo "/swap/swapfile swap swap defaults 0 0" >> /etc/fstab' || { echo "Failed to update /etc/fstab! Exiting..."; exit_message; exit 1; }
+  mkdir /swap && fallocate -l 24G /swap/swapfile && chmod 600 /swap/swapfile || { echo "Failed to create swap space! Exiting..."; exit_message; exit 1; }
+  mkswap /swap/swapfile && swapon /swap/swapfile || { echo "Failed to set up swap space! Exiting..."; exit_message; exit 1; }
+  bash -c 'echo "/swap/swapfile swap swap defaults 0 0" >> /etc/fstab' || { echo "Failed to update /etc/fstab! Exiting..."; exit_message; exit 1; }
 fi
 
 # Step 6: Adjust network buffer sizes
@@ -90,39 +83,39 @@ echo "Adjusting network buffer sizes..."
 if grep -q "^net.core.rmem_max=600000000$" /etc/sysctl.conf; then
   echo "net.core.rmem_max=600000000 found inside /etc/sysctl.conf, skipping..."
 else
-  echo -e "\n# Change made to increase buffer sizes for better network performance for ceremonyclient\nnet.core.rmem_max=600000000" | sudo tee -a /etc/sysctl.conf > /dev/null
+  echo -e "\n# Change made to increase buffer sizes for better network performance for ceremonyclient\nnet.core.rmem_max=600000000" | tee -a /etc/sysctl.conf > /dev/null
 fi
 if grep -q "^net.core.wmem_max=600000000$" /etc/sysctl.conf; then
   echo "net.core.wmem_max=600000000 found inside /etc/sysctl.conf, skipping..."
 else
-  echo -e "\n# Change made to increase buffer sizes for better network performance for ceremonyclient\nnet.core.wmem_max=600000000" | sudo tee -a /etc/sysctl.conf > /dev/null
+  echo -e "\n# Change made to increase buffer sizes for better network performance for ceremonyclient\nnet.core.wmem_max=600000000" | tee -a /etc/sysctl.conf > /dev/null
 fi
-sudo sysctl -p
+sysctl -p
 
 # Step 7: Install ufw and configure firewall
 echo "Installing ufw (Uncomplicated Firewall)..."
-sudo apt-get update
-sudo apt-get install ufw -y || { echo "Failed to install ufw! Moving on to the next step..."; }
+apt-get update
+apt-get install ufw -y || { echo "Failed to install ufw! Moving on to the next step..."; }
 
 # Attempt to enable ufw
 echo "Configuring firewall..."
 if command -v ufw >/dev/null 2>&1; then
-    echo "y" | sudo ufw enable || { echo "Failed to enable firewall! No worries, you can do it later manually."; }
+    echo "y" | ufw enable || { echo "Failed to enable firewall! No worries, you can do it later manually."; }
 else
     echo "ufw (Uncomplicated Firewall) is not installed. Skipping firewall configuration."
 fi
 
 # Check if ufw is available and configured
-if command -v ufw >/dev/null 2>&1 && sudo ufw status | grep -q "Status: active"; then
+if command -v ufw >/dev/null 2>&1 && ufw status | grep -q "Status: active"; then
     # Allow required ports
     for port in 22 8336 443; do
         if ! ufw_rule_exists "${port}"; then
-            sudo ufw allow "${port}" || echo "Error: Failed to allow port ${port}! You will need to allow port 8336 manually for the node to connect."
+            ufw allow "${port}" || echo "Error: Failed to allow port ${port}! You will need to allow port 8336 manually for the node to connect."
         fi
     done
 
     # Display firewall status
-    sudo ufw status
+    ufw status
     echo "Firewall setup was successful."
 else
     echo "Failed to configure firewall or ufw is not installed. No worries, you can do it later manually.  Moving on to the next step..."
@@ -150,11 +143,11 @@ echo "Creating qnode_restart.sh script..."
 # Check if the file already exists
 if [ ! -f "/root/scripts/qnode_restart.sh" ]; then
     # Attempt to download the script
-    sudo wget -O /root/scripts/qnode_restart.sh https://raw.githubusercontent.com/lamat1111/quilibrium-node-auto-installer/master/qnode_restart
+    wget -O /root/scripts/qnode_restart.sh https://raw.githubusercontent.com/lamat1111/quilibrium-node-auto-installer/master/qnode_restart
 
     # Check the exit status of wget
     if [ $? -eq 0 ]; then
-        sudo chmod +x /root/scripts/qnode_restart.sh
+        chmod +x /root/scripts/qnode_restart.sh
         echo "qnode_restart.sh script created and permissions set."
     else
         echo "Failed to download qnode_restart.sh script. You will have to do this manually later. Moving on to the next step..."
@@ -165,5 +158,5 @@ fi
 
 # Step 10: Prompt for reboot
 echo "Server setup is finished"
-echo "Type 'sudo reboot' and press ENTER to reboot your server."
+echo "Type 'reboot' and press ENTER to reboot your server."
 echo "Then follow the online guide for the next steps to install your Quilibrium node: https://iri.quest/quilibrium-node-guide"
