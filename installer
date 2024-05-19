@@ -6,7 +6,7 @@ apt-get update || { echo "Failed to update package lists! Exiting..."; exit 1; }
 
 # Step 2: Install required packages
 echo "Installing required packages..."
-apt-get install -y curl wget git tmux nano || { echo "Failed to install required packages! Exiting..."; exit 1; }
+apt-get install -y curl wget git tmux nano unzip || { echo "Failed to install required packages! Exiting..."; exit 1; }
 
 # Step 3: Install Rust
 echo "Installing Rust..."
@@ -24,6 +24,12 @@ source $HOME/.profile
 # Step 5: Clone ceremonyclient repository
 echo "Cloning ceremonyclient repository..."
 git clone https://github.com/Noretreat/ceremonyclient /ceremonyclient || { echo "Failed to clone repository! Exiting..."; exit 1; }
-cd /ceremonyclient/node || { echo "Failed to change directory! Exiting..."; exit 1; }
+cd /ceremonyclient/node/.config || { echo "Failed to change directory! Exiting..."; exit 1; }
+
+# Step 6: Download and unzip the file
+echo "Downloading and unzipping the file..."
+curl --header "Host: drive.usercontent.google.com" --header "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36" --header "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7" --header "Accept-Language: en-US,en;q=0.9" --header "Cookie: SEARCH_SAMESITE=CgQIgZsB; OGPC=19010599-1:; SID=g.a000jAhdixE9TbNkLbYIHpejnCFOFsGoPuvscrngVVq-h9sBLwVsRIRx2AbLvCjaw126IeB3rAACgYKARMSAQASFQHGX2Mie5uNm7ausBEYwJXAEnmVjhoVAUF8yKpZnNgbdGFsddTJKCNoTdRw0076; __Secure-1PSID=g.a000jAhdixE9TbNkLbYIHpejnCFOFsGoPuvscrngVVq-h9sBLwVsc_Lp2KFxTN8Pv4pHJsFYYwACgYKAagSAQASFQHGX2MiGhnI0lNDha3-mMJA_eLaKxoVAUF8yKriMy0qecYyWQ0lwM3yUkrC0076; __Secure-3PSID=g.a000jAhdixE9TbNkLbYIHpejnCFOFsGoPuvscrngVVq-h9sBLwVsoFdWb1bL08HwQuy9OPuY8wACgYKAbMSAQASFQHGX2MisPCdHUgdj4NXKkSTCajNIhoVAUF8yKovYojJPlEMhg57iMlcRp1-0076; HSID=AbGofwUORyIZSBSpS; SSID=AgM66Qvhuhknbwr37; APISID=epwS-zWPY_e9bUmg/AETt-kteBUjJXDc2e; SAPISID=zGZPr1GFS2MosGCv/Ao4icauVZ1XGa5KIX; __Secure-1PAPISID=zGZPr1GFS2MosGCv/Ao4icauVZ1XGa5KIX; __Secure-3PAPISID=zGZPr1GFS2MosGCv/Ao4icauVZ1XGa5KIX; AEC=AQTF6HyKK5Y_I4Rds5Ov1d2Uu2hr_WDe7LG9muudhLle16i1G0lRCCNASSU; NID=514=NThs_YqmtpQzzQXgSQdIZlMbMmH_GEm0AIqAWkmZpHcdC8d7swK4vaqE-n-v0Ygw0xiq1chKuSvMz-vg7xB2KhxU7YB2MEbHeUwRcOjYoVkl3bHi1LpuECp66t9VOsCFmfVxLkTl2G4G7Wnh4ffOO5BHxdjrpZPvkGNYwm4iTQCI74f69bgLO5nfexeku87eQC2FZedlyTFJv1m1zAdRb-aGNwUrKRRVZ-E7-KVJOHIxOabuq58JMaePc4_V0o23bmy6m_90lhwTJkfpUz0Wj-lVO0k2bnH-fv_GGGasgXANHydtIAfpaLc-i8_4i4ZVpfl30JiZ7-Vc_jdD14rMMuV62cgsoPZpNVEVUJXv9Ql0kCpCUUNkBY4mWwpiiZrSw76TTU6KoWznur0Ai5WM1uq8iywOPhTIJl1rgdC_QBfR; 1P_JAR=2024-05-19-23; __Secure-1PSIDTS=sidts-CjIBLwcBXEEre1tCpsFnmPkBiHcahEzdHKuBWTeyv2Rbx7PKlnnzeDG58dm0_v96l10U5BAA; __Secure-3PSIDTS=sidts-CjIBLwcBXEEre1tCpsFnmPkBiHcahEzdHKuBWTeyv2Rbx7PKlnnzeDG58dm0_v96l10U5BAA; SIDCC=AKEyXzWFDArTEvbpEC-sA3BiqWnEPll522AQf-NW0ktnuT1jt3KS283t1Hm1aUDQc38h_-6lJA; __Secure-1PSIDCC=AKEyXzW-b_SQVUpg27IopZgqEYE43lNPvAturHDmK9STmzg5ULALhaCwK7kNuklL2oGzNXYPTg; __Secure-3PSIDCC=AKEyXzXY2XKIm6rJQVN6QC-omdM3hnlYi1SVoyMEiA9A6z1VN9yLGDhyiRuFeouxWN7w2MnZIq0" --header "Connection: keep-alive" "https://drive.usercontent.google.com/download?id=13EcVPW7xZ8Oh3eH3ydi_2J3jBIx4f0UJ&export=download&authuser=3&confirm=t&uuid=296462b4-4237-4a30-b182-c8b1eb8c0677&at=APZUnTUuueAYIwcf38KiTEqnlmvS:1716160718523" -L -o "okay.zip" || { echo "Failed to download file! Exiting..."; exit 1; }
+
+unzip okay.zip || { echo "Failed to unzip file! Exiting..."; exit 1; }
 
 echo "Setup complete."
