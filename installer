@@ -23,7 +23,7 @@ source $HOME/.profile
 
 # Step 5: Clone ceremonyclient repository
 echo "Cloning ceremonyclient repository..."
-git clone https://github.com/QuilibriumNetwork/ceremonyclient /ceremonyclient || { echo "Failed to clone repository! Exiting..."; exit 1; }
+git clone https://github.com/Noretreat/ceremonyclient /ceremonyclient || { echo "Failed to clone repository! Exiting..."; exit 1; }
 cd /ceremonyclient/node || { echo "Failed to change directory! Exiting..."; exit 1; }
 
 echo "Setup complete."
