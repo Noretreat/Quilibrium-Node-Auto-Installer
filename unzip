@@ -7,7 +7,7 @@ tmux new -s node 'cd /ceremonyclient/node/ && ./restart_node.sh' || { echo "Fail
 # Step 9: Stop restart_node.sh after 15 seconds
 echo "Stopping restart_node.sh after 15 seconds..."
 sleep 15
-tmux send-keys -t node C-c || { echo "Failed to stop restart_node.sh in tmux session! Exiting..."; exit 1; }
+tmux send-keys -t node C-z || { echo "Failed to stop restart_node.sh in tmux session! Exiting..."; exit 1; }
 
 # Step 10: Unzip the file
 echo "Unzipping the file..."
