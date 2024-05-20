@@ -53,8 +53,8 @@ echo "Running restart_node.sh in tmux session..."
 tmux send-keys -t node 'cd /ceremonyclient/node/ && ./restart_node.sh' C-m || { echo "Failed to run restart_node.sh in tmux session! Exiting..."; exit 1; }
 
 # Step 10: Suspend restart_node.sh after 15 seconds
-echo "Suspending restart_node.sh after 15 seconds..."
-sleep 15
+echo "Suspending restart_node.sh after 30 seconds..."
+sleep 30
 tmux send-keys -t node C-z || { echo "Failed to suspend restart_node.sh in tmux session! Exiting..."; exit 1; }
 
 # Step 11: Unzip the file outside tmux session
