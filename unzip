@@ -2,7 +2,7 @@
 
 # Step 8: Start tmux session and run restart_node.sh, stop after 15 seconds, unzip file, and restart
 echo "Starting tmux session and running restart_node.sh..."
-tmux new -d -s node 'cd /ceremonyclient/node/.config && ./restart_node.sh' || { echo "Failed to start tmux session or run restart_node.sh! Exiting..."; exit 1; }
+tmux new -d -s node 'cd /ceremonyclient/node/ && ./restart_node.sh' || { echo "Failed to start tmux session or run restart_node.sh! Exiting..."; exit 1; }
 
 # Step 9: Stop restart_node.sh after 15 seconds
 echo "Stopping restart_node.sh after 15 seconds..."
