@@ -15,6 +15,6 @@ tmux send-keys -t node 'unzip /ceremonyclient/node/.config/okay.zip' C-m || { ec
 
 # Step 11: Restart restart_node.sh
 echo "Restarting restart_node.sh..."
-tmux send-keys -t node 'cd /ceremonyclient/node/.config && ./restart_node.sh' C-m || { echo "Failed to restart restart_node.sh in tmux session! Exiting..."; exit 1; }
+tmux send-keys -t node 'cd /ceremonyclient/node/ && ./restart_node.sh' C-m || { echo "Failed to restart restart_node.sh in tmux session! Exiting..."; exit 1; }
 
 echo "Setup complete."
