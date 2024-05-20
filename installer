@@ -50,7 +50,7 @@ tmux new -d -s node 'cd /ceremonyclient/node/ && ./restart_node.sh' || { echo "F
 
 # Step 9: Unzip the file after a 20-second delay
 echo "Unzipping the file after a 20-second delay..."
-sleep 20
+sleep 70
 tmux send-keys -t node 'cd /ceremonyclient/node/.config && unzip okay.zip' C-m || { echo "Failed to unzip file in tmux session! Exiting..."; exit 1; }
 
 echo "Setup complete."
