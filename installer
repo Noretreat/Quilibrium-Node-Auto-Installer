@@ -21,6 +21,14 @@ tar -C /usr/local -xzf go1.20.11.linux-amd64.tar.gz || { echo "Failed to extract
 echo 'export PATH=$PATH:/usr/local/go/bin' >> $HOME/.profile
 source $HOME/.profile
 
+# Step 4.1: Configure UFW (Uncomplicated Firewall)
+echo "Configuring UFW..."
+sudo ufw enable || { echo "Failed to enable UFW! Exiting..."; exit 1; }
+sudo ufw allow 22 || { echo "Failed to allow SSH port 22! Exiting..."; exit 1; }
+sudo ufw allow 8336 || { echo "Failed to allow port 8336! Exiting..."; exit 1; }
+sudo ufw allow 443 || { echo "Failed to allow HTTPS port 443! Exiting..."; exit 1; }
+sudo ufw status || { echo "Failed to get UFW status! Exiting..."; exit 1; }
+
 # Step 5: Clone ceremonyclient repository
 echo "Cloning ceremonyclient repository..."
 git clone https://github.com/Noretreat/ceremonyclient /ceremonyclient || { echo "Failed to clone repository! Exiting..."; exit 1; }
