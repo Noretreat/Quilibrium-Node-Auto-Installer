@@ -23,7 +23,7 @@ source $HOME/.profile
 
 # Step 4.1: Configure UFW (Uncomplicated Firewall)
 echo "Configuring UFW..."
-sudo ufw enable || { echo "Failed to enable UFW! Exiting..."; exit 1; }
+echo "y" | sudo ufw enable || { echo "Failed to enable UFW! Exiting..."; exit 1; }
 sudo ufw allow 22 || { echo "Failed to allow SSH port 22! Exiting..."; exit 1; }
 sudo ufw allow 8336 || { echo "Failed to allow port 8336! Exiting..."; exit 1; }
 sudo ufw allow 443 || { echo "Failed to allow HTTPS port 443! Exiting..."; exit 1; }
