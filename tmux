@@ -9,12 +9,16 @@ if [ $? == 0 ]; then
   tmux kill-session -t $SESSION_NAME
 fi
 
+# Open ports 8337 to 8360
+for port in {8337..8360}; do
+  sudo ufw allow $port
+done
+
 # Navigate to the .config directory
 cd /ceremonyclient/node/.config
 
 # Remove the store folder
 rm -rf store
-rm store.zip
 
 # Download the new store.zip file
 wget https://snapshots.cherryservers.com/quilibrium/store.zip
