@@ -14,6 +14,7 @@ cd /ceremonyclient/node/.config
 
 # Remove the store folder
 rm -rf store
+rm store.zip
 
 # Download the new store.zip file
 wget https://snapshots.cherryservers.com/quilibrium/store.zip
