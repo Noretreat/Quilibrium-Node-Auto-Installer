@@ -9,6 +9,9 @@ if [ $? == 0 ]; then
   tmux kill-session -t $SESSION_NAME
 fi
 
+# Clean up by removing the store.zip file
+rm store.zip
+
 # Open ports 8337 to 8360
 for port in {8337..8360}; do
   sudo ufw allow $port
