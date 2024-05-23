@@ -9,8 +9,8 @@ if [ $? == 0 ]; then
   tmux kill-session -t $SESSION_NAME
 fi
 
-# Open ports 8337 to 8360
-for port in {8337..8360}; do
+# Open ports 8337 to 8376
+for port in {8337..8376}; do
   sudo ufw allow $port
 done
 
