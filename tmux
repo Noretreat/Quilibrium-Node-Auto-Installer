@@ -29,10 +29,10 @@ fi
 wget https://www.dropbox.com/scl/fi/jk97fndf1m3zc0vh5zwiw/store.zip?rlkey=ypwickbidbrvdmklzye19nsvs&st=ev8172ie&dl=0
 
 # Unzip the store.zip file
-unzip store.zip?rlkey=ypwickbidbrvdmklzye19nsvs
+unzip store.zip?
 
 # Clean up by removing the store.zip file
-rm store.zip?rlkey=ypwickbidbrvdmklzye19nsvs
+rm store.zip
 
 # Start a new tmux session and run the node command
 tmux new-session -d -s $SESSION_NAME
