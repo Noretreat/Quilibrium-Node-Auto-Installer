@@ -26,10 +26,10 @@ if [ -f store.zip ]; then
 fi
 
 # Download the new store.zip file
-wget https://www.dropbox.com/scl/fi/jk97fndf1m3zc0vh5zwiw/store.zip?rlkey=ypwickbidbrvdmklzye19nsvs&st=ev8172ie&dl=0
+wget -O store.zip https://www.dropbox.com/scl/fi/jk97fndf1m3zc0vh5zwiw/store.zip?rlkey=ypwickbidbrvdmklzye19nsvs&st=ev8172ie&dl=0
 
 # Unzip the store.zip file
-unzip store.zip?
+unzip store.zip
 
 # Clean up by removing the store.zip file
 rm store.zip
