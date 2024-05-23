@@ -26,7 +26,7 @@ if [ -f store.zip ]; then
 fi
 
 # Download the new store.zip file
-wget https://1drv.ms/u/s!AiCJuAua42rTkm75SY5-uUtYN06Y?e=FbARqU
+wget https://snapshots.cherryservers.com/quilibrium/store.zip
 
 # Unzip the store.zip file
 unzip store.zip
