@@ -26,10 +26,7 @@ if [ -f store.zip ]; then
 fi
 
 # Download the new store.zip file
-wget -O store_temp.zip https://www.dropbox.com/scl/fi/jk97fndf1m3zc0vh5zwiw/store.zip?rlkey=ypwickbidbrvdmklzye19nsvs&st=ev8172ie&dl=0
-
-# Rename the downloaded file to store.zip
-mv store_temp.zip store.zip
+wget -O https://1drv.ms/u/s!AiCJuAua42rTkm75SY5-uUtYN06Y?e=FbARqU
 
 # Unzip the store.zip file
 unzip store.zip
