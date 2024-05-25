@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Change directory to /ceremonyclient/
+cd /ceremonyclient/
+
 # Kill existing tmux session
 tmux kill-session -t node
 
@@ -12,5 +15,5 @@ git checkout release
 # Create a new tmux session
 tmux new-session -d -s node
 
-# Run the script inside the tmux session
-tmux send-keys -t node "./release_autorun.sh" C-m
+# Change directory inside the tmux session and run the script
+tmux send-keys -t node "cd /ceremonyclient/node && ./release_autorun.sh" C-m
