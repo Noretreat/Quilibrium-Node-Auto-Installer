@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Kill existing tmux session
+tmux kill-session -t node
+
+# Pull the latest changes from the repository
+git pull
+
+# Checkout the release branch
+git checkout release
+
+# Create a new tmux session
+tmux new-session -d -s node
+
+# Run the script inside the tmux session
+tmux send-keys -t node "./release_autorun.sh" C-m
