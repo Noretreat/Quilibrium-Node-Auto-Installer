@@ -7,7 +7,7 @@ cd /ceremonyclient/
 tmux kill-session -t node
 
 # Pull the latest changes from the repository
-git pull
+git pull --rebase
 
 # Checkout the release branch
 git checkout release
