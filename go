@@ -34,7 +34,7 @@ tmux new-session -d -s $SESSION_NAME
 
 # Send commands to the new tmux session
 tmux send-keys -t $SESSION_NAME "cd /ceremonyclient/node/" C-m
-tmux send-keys -t $SESSION_NAME "./restart_node.sh" C-m
+tmux send-keys -t $SESSION_NAME "./release_autorun.sh" C-m
 
 # Notify when done
 echo "Script execution completed."
