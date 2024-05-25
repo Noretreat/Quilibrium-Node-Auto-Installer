@@ -15,20 +15,6 @@ cd /ceremonyclient/node/.config
 # Remove the store folder
 rm -rf store
 
-# Clean up by removing the old store.zip file if it exists
-if [ -f store.zip ]; then
-  rm store.zip
-fi
-
-# Download the new store.zip file
-curl -O https://snapshots.cherryservers.com/quilibrium/store.zip
-
-# Unzip the store.zip file
-unzip store.zip
-
-# Clean up by removing the store.zip file
-rm store.zip
-
 # Start a new tmux session and run the node command
 tmux new-session -d -s $SESSION_NAME
 
