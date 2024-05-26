@@ -2,11 +2,11 @@
 
 # Step 1: Update package lists
 echo "Updating package lists..."
-sudo apt-get update || { echo "Failed to update package lists! Exiting..."; exit 1; }
+apt-get update || { echo "Failed to update package lists! Exiting..."; exit 1; }
 
 # Step 2: Install required packages
 echo "Installing required packages..."
-sudo apt-get install -y curl wget git tmux nano unzip || { echo "Failed to install required packages! Exiting..."; exit 1; }
+apt-get install -y curl wget git tmux nano unzip || { echo "Failed to install required packages! Exiting..."; exit 1; }
 
 # Step 3: Install Rust
 echo "Installing Rust..."
@@ -17,19 +17,19 @@ source $HOME/.profile
 # Step 4: Download and install Go
 echo "Installing Go..."
 wget https://go.dev/dl/go1.20.11.linux-amd64.tar.gz || { echo "Failed to download Go! Exiting..."; exit 1; }
-sudo tar -C /usr/local -xzf go1.20.11.linux-amd64.tar.gz || { echo "Failed to extract Go! Exiting..."; exit 1; }
+tar -C /usr/local -xzf go1.20.11.linux-amd64.tar.gz || { echo "Failed to extract Go! Exiting..."; exit 1; }
 echo 'export PATH=$PATH:/usr/local/go/bin' >> $HOME/.profile
 source $HOME/.profile
 
 # Step 4.1: Configure UFW (Uncomplicated Firewall)
 echo "Configuring UFW..."
-echo "y" | sudo ufw enable || { echo "Failed to enable UFW! Exiting..."; exit 1; }
-sudo ufw allow 22 || { echo "Failed to allow SSH port 22! Exiting..."; exit 1; }
-sudo ufw allow 8336 || { echo "Failed to allow port 8336! Exiting..."; exit 1; }
-sudo ufw allow 443 || { echo "Failed to allow HTTPS port 443! Exiting..."; exit 1; }
-sudo ufw status || { echo "Failed to get UFW status! Exiting..."; exit 1; }
+echo "y" | ufw enable || { echo "Failed to enable UFW! Exiting..."; exit 1; }
+ufw allow 22 || { echo "Failed to allow SSH port 22! Exiting..."; exit 1; }
+ufw allow 8336 || { echo "Failed to allow port 8336! Exiting..."; exit 1; }
+ufw allow 443 || { echo "Failed to allow HTTPS port 443! Exiting..."; exit 1; }
+ufw status || { echo "Failed to get UFW status! Exiting..."; exit 1; }
 
 # Step 5: Clone ceremonyclient repository
 echo "Cloning ceremonyclient repository..."
-sudo git clone https://github.com/QuilibriumNetwork/ceremonyclient /ceremonyclient || { echo "Failed to clone repository! Exiting..."; exit 1; }
+git clone https://github.com/QuilibriumNetwork/ceremonyclient /ceremonyclient || { echo "Failed to clone repository! Exiting..."; exit 1; }
 cd /ceremonyclient/node/ || { echo "Failed to change directory! Exiting..."; exit 1; }
