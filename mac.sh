@@ -29,4 +29,5 @@ sudo /usr/libexec/ApplicationFirewall/socketfilterfw --getglobalstate || { echo 
 #Step 5: Clone ceremonyclient repository
 echo "Cloning ceremonyclient repository..."
 git clone https://source.quilibrium.com/quilibrium/ceremonyclient $HOME/ceremonyclient || { echo "Failed to clone repository! Exiting..."; exit 1; }
-cd $HOME/ceremonyclient/node/ || { echo "Failed to change directory! Exiting..."; exit 1; }
+cd $HOME/ceremonyclient/ || { echo "Failed to change directory! Exiting..."; exit 1; }
+git checkout release || { echo "Failed to checkout release branch! Exiting..."; exit 1; }
