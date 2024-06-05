@@ -2,6 +2,8 @@
 #Step 0: Install Homebrew
 echo "Installing Homebrew..."
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" || { echo "Failed to install Homebrew! Exiting..."; exit 1; }
+(echo; echo 'eval "$(/opt/homebrew/bin/brew shellenv)"') >> /Users/m1/.zprofile
+eval "$(/opt/homebrew/bin/brew shellenv)"
 #Step 1: Update package lists
 echo "Updating package lists..."
 brew update || { echo "Failed to update package lists! Exiting..."; exit 1; }
