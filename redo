@@ -1,19 +1,14 @@
 #!/bin/bash
 
-# Change directory to /ceremonyclient/
-cd /ceremonyclient/
+# Clear machine-id
+if [ -f /etc/machine-id ]; then
+    cat /dev/null > /etc/machine-id
+fi
 
-# Kill existing tmux session
-tmux kill-session -t node
+if [ -f /var/lib/dbus/machine-id ]; then
+    rm -f /var/lib/dbus/machine-id
+fi
 
-# Pull the latest changes from the repository
-git pull --rebase
-
-# Checkout the release branch
-git checkout release
-
-# Create a new tmux session
-tmux new-session -d -s node
-
-# Change directory inside the tmux session and run the script
-tmux send-keys -t node "cd /ceremonyclient/node && ./release_autorun.sh" C-m
+# Linking /var/lib/dbus/machine-id to /etc/machine-id means it will not 
+# need to be regenerated later and it will always be the same.
+ln -s /etc/machine-id /var/lib/dbus/machine-id
