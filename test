@@ -39,3 +39,29 @@ fi
 docker --version
 
 echo "Docker Engine has been successfully installed on your Ubuntu system!"
+
+# Install UFW (Uncomplicated Firewall)
+sudo apt-get install -y ufw
+
+# Allow specific ports through the firewall
+sudo ufw allow 5011/tcp
+sudo ufw allow 22/tcp
+
+# Enable UFW
+sudo ufw enable
+
+# Install Git
+sudo apt-get install -y git
+
+# Pull the Docker image
+docker pull admier/brinxai_nodes-worker:latest
+
+# Clone the repository
+git clone https://github.com/admier1/BrinxAI-Worker-Nodes
+
+# Navigate into the cloned repository directory
+cd BrinxAI-Worker-Nodes
+
+# Make the install script executable and run it
+chmod +x install_ubuntu.sh
+./install_ubuntu.sh
