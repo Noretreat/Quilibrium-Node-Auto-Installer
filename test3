@@ -1,0 +1,21 @@
+#!/bin/bash
+set -e
+
+# Update the apt package index
+sudo apt-get update
+
+# Install packages to allow apt to use a repository over HTTPS
+sudo apt-get install -y ca-certificates curl gnupg mc
+
+# Install Satori
+cd ~
+wget -P ~/ https://satorinet.io/static/download/linux/satori.zip
+unzip ~/satori.zip
+rm ~/satori.zip
+cd ~/.satori
+sudo apt install -y python3-venv
+bash install.sh
+bash install_service.sh
+
+echo "Satori has been installed. Starting the service..."
+journalctl -fu satori.service
